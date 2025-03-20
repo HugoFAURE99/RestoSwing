@@ -4,20 +4,58 @@
  */
 package restoswing;
 
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
+
 /**
  *
  * @author Hugo
  */
 public class LignesDialog extends javax.swing.JDialog {
+    
+    public Commande commande;
+    public ArrayList<LigneCommande> lignes;
 
     /**
      * Creates new form LignesDialog
      */
-    public LignesDialog(java.awt.Frame parent, boolean modal) {
+    
+    // Récupère la commande et remplit les lignes commande
+    public void get_data(){
+        
+        // Récupère les lignes de la commande
+        this.lignes = this.commande.getLignesCommande();
+
+        // Construit le tableau de données à partir de la collection
+        Object[][] data = new Object[lignes.size()][2];
+        for (int i = 0; i < lignes.size(); i++) {
+        data[i][0] = lignes.get(i).getIdProduit();
+        data[i][1] = lignes.get(i).getQteLigne();
+        }
+        
+        // Construit le tableau des entêtes
+        String[] cols = {"IDpro", "Quantite"};
+        // Construit le modèle
+        DefaultTableModel model_lignes = new DefaultTableModel(data, cols);
+        // Met à jour le modèle dans le JTable
+        jTable2.setModel(model_lignes);
+    
+    }
+    
+    
+    public LignesDialog(java.awt.Frame parent, boolean modal,  Commande commande){
+        super(parent, modal);
+        this.commande = commande; // Récupère la région en cours
+        initComponents();
+        get_data(); 
+    }
+    
+    public LignesDialog(java.awt.Frame parent, boolean modal){
         super(parent, modal);
         initComponents();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -164,7 +202,7 @@ public class LignesDialog extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                LignesDialog dialog = new LignesDialog(new javax.swing.JFrame(), true);
+                LignesDialog dialog = new LignesDialog(new javax.swing.JFrame(),true );
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

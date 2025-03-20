@@ -4,6 +4,8 @@
  */
 package restoswing;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -245,9 +247,21 @@ public class ListeCommandes extends javax.swing.JFrame {
         
         int row = jTable1.getSelectedRow();
         
-        if (row >= 0 && row < jTable1.getRowCount) {
+        if (row >= 0 && row < jTable1.getRowCount()) {
             Commande commande = les_commandes.get(row);
            
+            LignesDialog lignes_liste = new LignesDialog(this, true, commande);
+            
+            lignes_liste.addWindowListener(new WindowAdapter(){
+                public void windowClosed(WindowEvent e) {
+                System.out.println("jdialog window closed"); // test
+                get_data(); // Rafraîchit le JTable
+                } // windowClosed()
+            });
+            
+            //Afficher la Jdialog
+            lignes_liste.setVisible(true);
+            
         }
         
         
