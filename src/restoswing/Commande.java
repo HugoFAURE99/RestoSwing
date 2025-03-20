@@ -103,8 +103,7 @@ public class Commande {
         System.out.println("ID: " + idCommande);
         System.out.println("Etat: " + etatCommande);
         System.out.println("IdUtil: " + idUtilisateur);
-        System.out.println("TypeCom: " + typeCommande);
-    
+        System.out.println("TypeCom: " + typeCommande);    
     }
     
     
