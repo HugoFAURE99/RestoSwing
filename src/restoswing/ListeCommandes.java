@@ -32,6 +32,8 @@ public class ListeCommandes extends javax.swing.JFrame {
     
     //Parsing du JSON venant de l'api "commandes_en_attente"
     public void get_data(){
+        
+        les_commandes = new ArrayList<>();
     
         String json = ""; // Le JSON brut
         String url =
