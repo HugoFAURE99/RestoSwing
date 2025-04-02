@@ -4,6 +4,10 @@
  */
 package restoswing;
 
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
@@ -119,9 +123,19 @@ public class LignesDialog extends javax.swing.JDialog {
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Refuser");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jButton3.setText("Terminer");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -169,8 +183,60 @@ public class LignesDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        // Genere l'URL qui appelle l'API "Accepter commande" avec l'id de la commande à passer au statut accepter 
+        String url =
+        "http://localhost/projets/restoweb/restoweb/api/accepter.php?id=" + commande.getIdCommande().toString();
+        // Créer un HttpClient
+        HttpClient client = HttpClient.newHttpClient();
+        // Crée une requête HTTP GET
+        try {
+        // Construit l'URL de la requête
+        HttpRequest request = HttpRequest.newBuilder()
+        .uri(new URI(url))
+        .build();
+        // Envoie la requête et attend la réponse
+        HttpResponse<String> response = client.send(request,
+        HttpResponse.BodyHandlers.ofString());
+        }catch(Exception ex){}
+        
+        
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // Genere l'URL qui appelle l'API "Refuser  commande" avec l'id de la commande à passer au statut refuser 
+        String url =
+        "http://localhost/projets/restoweb/restoweb/api/refuser.php?id=" + commande.getIdCommande().toString();
+        // Créer un HttpClient
+        HttpClient client = HttpClient.newHttpClient();
+        // Crée une requête HTTP GET
+        try {
+        // Construit l'URL de la requête
+        HttpRequest request = HttpRequest.newBuilder()
+        .uri(new URI(url))
+        .build();
+        // Envoie la requête et attend la réponse
+        HttpResponse<String> response = client.send(request,
+        HttpResponse.BodyHandlers.ofString());
+        }catch(Exception ex){}
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+       // Genere l'URL qui appelle l'API "terminer commande" avec l'id de la commande à passer au statut terminer 
+        String url =
+        "http://localhost/projets/restoweb/restoweb/api/terminer.php?id=" + commande.getIdCommande().toString();
+        // Créer un HttpClient
+        HttpClient client = HttpClient.newHttpClient();
+        // Crée une requête HTTP GET
+        try {
+        // Construit l'URL de la requête
+        HttpRequest request = HttpRequest.newBuilder()
+        .uri(new URI(url))
+        .build();
+        // Envoie la requête et attend la réponse
+        HttpResponse<String> response = client.send(request,
+        HttpResponse.BodyHandlers.ofString());
+        }catch(Exception ex){}
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
